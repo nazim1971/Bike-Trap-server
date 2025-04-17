@@ -7,6 +7,11 @@ const serviceZodSchema = z.object({
   status: z.enum(["pending", "in_progress", "done"]),
 });
 
+const markServiceCompleteSchema = z.object({
+    completionDate: z.coerce.date().optional(),
+  });
+
 export const ServiceValidation = {
-    serviceZodSchema
+    serviceZodSchema,
+    markServiceCompleteSchema
 }

@@ -10,3 +10,9 @@ ServiceRoutes.post(
   "/",
   validateRequest(ServiceValidation.serviceZodSchema), ServiceController.createService
 );
+
+ServiceRoutes.get("/", ServiceController.getAllService);
+
+ServiceRoutes.get("/:id", ServiceController.getServiceById);
+
+ServiceRoutes.put("/:id/complete", ServiceController.markServiceAsCompleted);
