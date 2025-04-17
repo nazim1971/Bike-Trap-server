@@ -32,13 +32,13 @@ model serviceRecord {
   serviceDate    DateTime      @default(now())
   completionDate DateTime?
   description    String
-  status         ServiceStatus
+  status         ServiceStatus @default(pending)
   bike           bike          @relation(fields: [bikeId], references: [bikeId])
 }
 
 enum ServiceStatus {
-  PENDING
-  IN_PROGRESS
-  DONE
+  pending
+  in_progress
+  done
 }
 
