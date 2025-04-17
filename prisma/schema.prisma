@@ -18,7 +18,7 @@ model customer {
 
 model bike {
   bikeId        String          @id @default(uuid())
-  brand         BikeBrand
+  brand         String
   model         String
   year          Int
   customerId    String
@@ -42,9 +42,3 @@ enum ServiceStatus {
   DONE
 }
 
-enum BikeBrand {
-  Yamaha
-  Honda
-  Hero
-  CF_Moto
-}
