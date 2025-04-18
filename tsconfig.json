@@ -15,8 +15,5 @@
   "exclude": [
     "node_modules",                         
     "dist"                                  
-  ],
-  "files": [
-    "./src/app/interface/index.d.ts"  
   ]
 }

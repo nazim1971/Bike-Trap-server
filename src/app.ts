@@ -1,9 +1,9 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
 import router from './app/routes';
-import { globalErrorHandler } from './middlewires/globalErrorHandler';
 import { notFoundError } from './middlewires/notFoundError';
 import cookieParser from 'cookie-parser';
+import { globalErrorHandler } from './middlewires/globalErrorHandler';
 
 const app: Application = express();
 app.use(cors());
