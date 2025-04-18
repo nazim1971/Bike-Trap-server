@@ -10,6 +10,7 @@ const service_validation_1 = require("./service.validation");
 const service_controller_1 = require("./service.controller");
 exports.ServiceRoutes = (0, express_1.Router)();
 exports.ServiceRoutes.post("/", (0, validateRequest_1.default)(service_validation_1.ServiceValidation.serviceZodSchema), service_controller_1.ServiceController.createService);
+exports.ServiceRoutes.get("/status", service_controller_1.ServiceController.getOverdueOrPendingServices);
 exports.ServiceRoutes.get("/", service_controller_1.ServiceController.getAllService);
 exports.ServiceRoutes.get("/:id", service_controller_1.ServiceController.getServiceById);
 exports.ServiceRoutes.put("/:id/complete", service_controller_1.ServiceController.markServiceAsCompleted);

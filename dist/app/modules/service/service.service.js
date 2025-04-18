@@ -59,9 +59,23 @@ const markServiceAsCompleted = (serviceId, completionDate) => __awaiter(void 0, 
     });
     return result;
 });
+const getOverdueOrPendingServices = () => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield prisma_1.default.serviceRecord.findMany({
+        where: {
+            status: {
+                in: ["pending", "in_progress"], // Filter for status
+            },
+            serviceDate: {
+                lte: new Date(new Date().setDate(new Date().getDate() - 7)), // Service date older than 7 days
+            },
+        },
+    });
+    return result;
+});
 exports.ServiceRecordService = {
     createService,
     getAllService,
     getServiceById,
-    markServiceAsCompleted
+    markServiceAsCompleted,
+    getOverdueOrPendingServices,
 };

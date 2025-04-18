@@ -47,7 +47,7 @@ const getAllService = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 
         data: result,
     });
 }));
-const getServiceById = (0, catchAsync_1.catchAsync)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+const getServiceById = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { id } = req.params;
     const result = yield service_service_1.ServiceRecordService.getServiceById(id);
     if (!result) {
@@ -77,9 +77,19 @@ const markServiceAsCompleted = (0, catchAsync_1.catchAsync)((req, res) => __awai
         data: result,
     });
 }));
+const getOverdueOrPendingServices = (0, catchAsync_1.catchAsync)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield service_service_1.ServiceRecordService.getOverdueOrPendingServices();
+    (0, sendResponse_1.sendResponse)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: "Overdue or pending services fetched successfully",
+        data: result,
+    });
+}));
 exports.ServiceController = {
     createService,
     getAllService,
     getServiceById,
-    markServiceAsCompleted
+    markServiceAsCompleted,
+    getOverdueOrPendingServices
 };
