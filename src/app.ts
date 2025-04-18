@@ -14,7 +14,7 @@ app.use(express.urlencoded({extended: true}))
 
 app.get('/', (req: Request, res: Response) => {
     res.send({
-        Message: "Ph health server is on fire..."
+        Message: "Bike Trap server is on fire..."
     })
 })
 

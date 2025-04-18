@@ -16,7 +16,7 @@ app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
     res.send({
-        Message: "Ph health server is on fire..."
+        Message: "Bike Trap server is on fire..."
     });
 });
 app.use('/api', routes_1.default);
