@@ -10,9 +10,12 @@ ServiceRoutes.post(
   "/",
   validateRequest(ServiceValidation.serviceZodSchema), ServiceController.createService
 );
+ServiceRoutes.get("/status", ServiceController.getOverdueOrPendingServices)
 
 ServiceRoutes.get("/", ServiceController.getAllService);
 
 ServiceRoutes.get("/:id", ServiceController.getServiceById);
 
 ServiceRoutes.put("/:id/complete", ServiceController.markServiceAsCompleted);
+
+

@@ -1,4 +1,4 @@
-import { NextFunction, Request, Response } from "express";
+import { Request, Response } from "express";
 import { catchAsync } from "../../shared/catchAsync";
 import { sendResponse } from "../../shared/sendResponse";
 import httpStatus from 'http-status'
@@ -26,7 +26,7 @@ const createService = catchAsync(async (req: Request, res: Response) => {
   });
   
   const getServiceById = catchAsync(
-    async (req: Request, res: Response, next: NextFunction) => {
+    async (req: Request, res: Response) => {
       const { id } = req.params;
       const result = await ServiceRecordService.getServiceById(id);
       if (!result) {
@@ -62,9 +62,20 @@ const createService = catchAsync(async (req: Request, res: Response) => {
   });
   
 
+  const getOverdueOrPendingServices = catchAsync(async (req: Request, res: Response) => {
+    const result = await ServiceRecordService.getOverdueOrPendingServices();
+    sendResponse(res, {
+      statusCode: httpStatus.OK,
+      success: true,
+      message: "Overdue or pending services fetched successfully",
+      data: result,
+    });
+  });
+
   export const ServiceController = {
 createService,
 getAllService,
 getServiceById,
-markServiceAsCompleted
+markServiceAsCompleted,
+getOverdueOrPendingServices
   }
