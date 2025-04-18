@@ -2,7 +2,10 @@ import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import { Prisma } from "@prisma/client";
 import { StatusFullError } from "../app/error/StatusFullError";
-import { handlePrismaError } from "../app/error/prisma.error";
+import { handlePrismaError } from "../app/error/prismaDuplicate.error";
+import { ZodError } from "zod";
+import handleZodError from "../app/error/zod.error";
+import { handlePrismaNotFoundError } from "../app/error/prismaNotFound.error";
 
 // ✅ Explicit typing
 export const globalErrorHandler = (
@@ -17,14 +20,16 @@ export const globalErrorHandler = (
   } catch (handledError) {
     error = handledError;
   }
-  if (
-    error instanceof Prisma.PrismaClientKnownRequestError &&
-    error.code === "P2025"
-  ) {
-    res.status(httpStatus.NOT_FOUND).json({
+  if (handlePrismaNotFoundError(error, res)) return
+
+   // Handle Zod validation error
+   if (error instanceof ZodError) {
+    const zodFormatted = handleZodError(error);
+    res.status(zodFormatted.statusCode).json({
       success: false,
-      status: 404,
-      message: error.meta?.cause || "Resource not found",
+      status: zodFormatted.statusCode,
+      message: zodFormatted.message,
+      error: zodFormatted.error,
       stack: process.env.NODE_ENV === "development" ? error.stack : undefined,
     });
     return;

@@ -7,7 +7,7 @@ const createCustomer = z.object({
   email: z
     .string({ required_error: "Email is required" })
     .email("Invalid email address"),
-  phone: z.string().optional(),
+  phone: z.string(),
 });
 
 export const updateCustomerSchema = z.object({
