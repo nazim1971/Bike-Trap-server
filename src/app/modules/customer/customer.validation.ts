@@ -11,9 +11,10 @@ const createCustomer = z.object({
 });
 
 export const updateCustomerSchema = z.object({
-    name: z.string().min(2, "Name must be at least 2 characters").optional(),
-    phone: z.string().optional(),
-  }).strict();
+  name: z.string().min(2, "Name must be at least 2 characters").optional(),
+  phone: z.string().optional(),
+  email: z.string().email("Invalid email address").optional(),
+}).strict();
 
 
 export const CustomerValidation = {

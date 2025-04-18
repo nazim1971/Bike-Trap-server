@@ -14,6 +14,7 @@ const createCustomer = zod_1.z.object({
 exports.updateCustomerSchema = zod_1.z.object({
     name: zod_1.z.string().min(2, "Name must be at least 2 characters").optional(),
     phone: zod_1.z.string().optional(),
+    email: zod_1.z.string().email("Invalid email address").optional(),
 }).strict();
 exports.CustomerValidation = {
     createCustomer,
