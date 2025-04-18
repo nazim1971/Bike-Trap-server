@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status";
 import { Prisma } from "@prisma/client";
 import { StatusFullError } from "../app/error/StatusFullError";
+import { handlePrismaError } from "../app/error/prisma.error";
 
 // ✅ Explicit typing
 export const globalErrorHandler = (
@@ -10,6 +11,12 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ): void => {
+  try {
+    // Let handlePrismaError convert known Prisma errors to StatusFullError
+    handlePrismaError(error);
+  } catch (handledError) {
+    error = handledError;
+  }
   if (
     error instanceof Prisma.PrismaClientKnownRequestError &&
     error.code === "P2025"
