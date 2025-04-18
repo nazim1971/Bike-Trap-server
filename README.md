@@ -1,8 +1,4 @@
-Here’s a fully customized and professional `README.md` for your **Bike Trap** project, completely rewritten to ensure originality and attribution to you:
 
----
-
-```md
 # 🏍️ Bike Trap
 
 A fully-featured backend API for managing bike servicing workflows, including customer registrations, bike records, and detailed service histories — all with robust CRUD capabilities and RESTful endpoints.
