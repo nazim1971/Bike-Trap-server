@@ -1,6 +1,7 @@
 import { customer } from "@prisma/client";
 import prisma from "../../shared/prisma";
 import { TCustomer } from "./customer.interface";
+import { StatusFullError } from "../../error/StatusFullError";
 
 const createCustomer = async (data: TCustomer) => {
   const customerData = await prisma.customer.create({
@@ -48,11 +49,21 @@ const updateCustomer = async (id: string, data: Partial<TCustomer>) => {
 };
 
 const deleteCustomer = async (id: string) => {
-  await prisma.customer.findUniqueOrThrow({
+  const customer = await prisma.customer.findUniqueOrThrow({
     where: {
       customerId: id,
     },
   });
+
+  if (!customer) {
+    throw new StatusFullError({
+      name: "NotFoundError",
+      message: "Customer not found",
+      status: 404,
+      path: `/api/customers/${id}`,
+    });
+  }
+
   const result = await prisma.customer.delete({
     where: {
       customerId: id,
