@@ -234,4 +234,3 @@ yarn test
 
 ---
 
-Let me know if you'd like me to create a `README.md` file in your repo or if you want a version that includes a logo/banner at the top!
